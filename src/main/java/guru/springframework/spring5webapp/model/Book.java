@@ -14,31 +14,33 @@ public class Book {
     private Long id;
     private String title;
     private String isbn;
-    //private String publisher;
+
+    @OneToOne
+    private Publisher publisher;
 
     @ManyToMany
-    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
-    inverseJoinColumns = @JoinColumn(name = "author_id"))
+    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "publisher_book", joinColumns = @JoinColumn(name = "book_id"),
-    inverseJoinColumns = @JoinColumn(name = "publisher_id"))
-    private Set<Publisher> publishers = new HashSet<>();
+    // @ManyToMany
+    // @JoinTable(name = "publisher_book", joinColumns = @JoinColumn(name =
+    // "book_id"),
+    // inverseJoinColumns = @JoinColumn(name = "publisher_id"))
+    // private Set<Publisher> publisher = new HashSet<>();
 
     public Book() {
     }
 
-    public Book(String title, String isbn, Set<Publisher> publishers) {
+    public Book(String title, String isbn, Publisher publisher) {
         this.title = title;
         this.isbn = isbn;
-        this.publishers = publishers;
+        this.publisher = publisher;
     }
 
-    public Book(String title, String isbn, Set<Publisher> publishers, Set<Author> authors) {
+    public Book(String title, String isbn, Publisher publisher, Set<Author> authors) {
         this.title = title;
         this.isbn = isbn;
-        this.publishers = publishers;
+        this.publisher = publisher;
         this.authors = authors;
     }
 
@@ -66,12 +68,12 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public Set<Publisher> getPublishers() {
-        return publishers;
+    public Publisher getPublisher() {
+        return publisher;
     }
 
-    public void setPublisher(Set<Publisher> publishers) {
-        this.publishers = publishers;
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     public Set<Author> getAuthors() {
@@ -84,8 +86,10 @@ public class Book {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         Book book = (Book) o;
 
@@ -103,7 +107,7 @@ public class Book {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
-                ", publisher='" + publishers + '\'' +
+                ", publisher='" + publisher + '\'' +
                 ", authors=" + authors +
                 '}';
     }

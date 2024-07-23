@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 public class Publisher {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -19,10 +19,12 @@ public class Publisher {
     private String contact;
     private String phone;
 
-
     @ManyToMany(mappedBy = "publishers")
-    private Set<Book> books  = new HashSet<>();
+    private Set<Book> books = new HashSet<>();
 
+    public Publisher() {
+
+    }
 
     public Publisher(Long id, String name, String contact, String phone) {
         this.id = id;
@@ -31,7 +33,7 @@ public class Publisher {
         this.phone = phone;
     }
 
-    public Publisher(Long id, String name, String contact, String phone,Set<Book> books) {
+    public Publisher(Long id, String name, String contact, String phone, Set<Book> books) {
         this.id = id;
         this.name = name;
         this.contact = contact;
@@ -71,7 +73,7 @@ public class Publisher {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    
+
     public Set<Book> getBooks() {
         return books;
     }
@@ -79,6 +81,5 @@ public class Publisher {
     public void setBooks(Set<Book> books) {
         this.books = books;
     }
-
 
 }
